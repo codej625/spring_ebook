@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ebook.ranking.mapper.MainMapper_codej625;
+import com.ebook.ranking.service.MainService_codej625;
 
 @Service
-public class MainServiceImpl_codej625 implements com.ebook.ranking.service.MainService_codej625 {
+public class MainServiceImpl_codej625 implements MainService_codej625 {
 
 	@Autowired
 	MainMapper_codej625 codej625;
