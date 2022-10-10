@@ -1,0 +1,36 @@
+# server port
+server:
+  port: '8080'
+
+# mybatis
+mybatis:
+  # package aliases set
+  type-aliases-package: com.ebook.ranking.mapper
+  # mapper xml set
+  mapper-locations: mybatis/mapper/*.xml, mybatis/mapper/**/*.xml
+
+# project setting
+spring:
+
+# view
+  thymeleaf:
+    cache: 'false'
+    enabled: 'true'
+    prefix: classpath:templates/
+    suffix: .html
+    
+# datasource
+  sql:
+    init:
+      platform: postgresql
+  datasource:
+    password: '1007'
+    hikari:
+      maximum-pool-size: '4'
+    username: codej625
+    url: jdbc:postgresql://localhost:5432/project
+
+# devtools
+  devtools:
+    livereload:
+      enabled: 'true'
