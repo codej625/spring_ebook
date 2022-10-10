@@ -1,11 +1,9 @@
 package com.ebook.ranking.main_controller;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ebook.ranking.service_impl.MainServiceImpl_codej625;
 
@@ -16,12 +14,11 @@ public class MainController_codej625 {
 	MainServiceImpl_codej625 codej625;
 
 	@GetMapping(value = "/")
-	public String testController(Model model) throws Exception {
+	public ModelAndView testController(ModelAndView mv) throws Exception {
 
-		Map<String, Object> test = codej625.testService();
-		model.addAttribute("test", test);
+		mv.setViewName("page/test");
 
-		return "test";
+		return mv;
 	}
 
 }
