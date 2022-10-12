@@ -12,4 +12,13 @@ public class NoticeDto {
 	private int count;
 	private String originFile;
 	private String storedFile;
+	
+	//공지 검색
+	private String searchType;
+	private String searchKeyWord;
+	
+	//페이징처리
+	private int currentPage = 1; //현재페이지 default값은 1
+	
+
 }

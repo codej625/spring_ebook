@@ -13,12 +13,4 @@ public class MainController_devho321 {
 	@Autowired
 	MainService_devho321 ms321;
 	
-	@GetMapping(value = "/devho321/main")
-	public ModelAndView mainController(ModelAndView mv) {
-		
-		mv.setViewName("devho321/main");
-		
-		return mv;
-	}
-	
 }

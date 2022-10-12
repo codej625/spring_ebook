@@ -1,16 +1,19 @@
 package com.ebook.ranking.main_controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ebook.ranking.domain.NoticeDto;
 import com.ebook.ranking.service.NoticeService_devho321;
+
 
 
 @Controller
@@ -19,30 +22,45 @@ public class NoticeController_devho321 {
 	@Autowired
 	NoticeService_devho321 ns;
 	
-	@GetMapping(value = "/devho321/noitceForm")
-	public ModelAndView noitceForm(ModelAndView mv) throws Exception {
+	//공지사항 조회
+	@RequestMapping(value = "/noitceList", method = {RequestMethod.GET, RequestMethod.POST})
+	public String noitceList(NoticeDto noticeDto) throws Exception {
 		
-		List<NoticeDto> noticeList = ns.selectNoticeList();
+		int totalCnt = ns.selectTotalCnt();
+		List<NoticeDto> noticeList = ns.selectNoticeList(noticeDto);
 		
+		System.out.println("totalCnt => " + totalCnt);
 		System.out.println(noticeList);
 		
-		mv.addObject("noticeList",noticeList);
-		mv.setViewName("devho321/noticeForm");
-		
-		return mv;
+		return "redirect:/";
 	}
 	
-	@GetMapping(value = "/devho321/insertNoticeForm")
-	public ModelAndView noitceInsert(ModelAndView mv) throws Exception {
-		
-		mv.setViewName("devho321/insertNoticeForm");
-		
-		return mv;
+	//공지사항 상세조회
+	@GetMapping(value = "/noticeList/{noticeNo}")
+	public String noticeDetail(@PathVariable("noticeNo") int noticeNo) throws Exception{
+		System.out.println("noticeNo ==> " + noticeNo);
+		List<NoticeDto> noticeDetail = ns.selectNoticeDetailList(noticeNo); 
+		System.out.println(noticeDetail);
+		return "redirect:/";
 	}
-	
-	@PostMapping(value = "/devho321/insertNotice")
-	public void noitceInsert(ModelAndView mv, NoticeDto noticeDto) throws Exception {
+	//공지사항 등록 (admin계정만 사용가능)
+	@PostMapping(value = "/noticeInsert")
+	public String noitceInsert(ModelAndView mv, NoticeDto noticeDto) throws Exception {
+		System.out.println(noticeDto.getNoticeWriter());
+		System.out.println(noticeDto.getNoticeTitle());
+		System.out.println(noticeDto.getNoticeContent());
+		System.out.println(noticeDto.getOriginFile());
 		
-		System.out.println("gfggg =>" + noticeDto.getNoticeTitle());
+		return "redirect:/";
+	}
+	//공지사항 수정 (admin계정만 사용가능)
+	@PostMapping(value = "/noitceUpdate")
+	public void noitceUpdate(ModelAndView mv, NoticeDto noticeDto) throws Exception {
+		
+	}
+	//공지사항 삭제(admin계정만 사용가능)
+	@PostMapping(value = "/noitceDelete")
+	public void noitceDelete(ModelAndView mv, NoticeDto noticeDto) throws Exception {
+		
 	}
 }

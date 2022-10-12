@@ -12,6 +12,10 @@ import com.ebook.ranking.domain.NoticeDto;
 @Repository
 public interface NoticeMapper_devho321 {
 
-	List<NoticeDto> selectNoticeList() throws Exception;
+	List<NoticeDto> selectNoticeList(NoticeDto noticeDto) throws Exception;
+
+	int selectTotalCnt() throws Exception;
+
+	List<NoticeDto> selectNoticeDetailList(int noticeNo) throws Exception;
 
 }

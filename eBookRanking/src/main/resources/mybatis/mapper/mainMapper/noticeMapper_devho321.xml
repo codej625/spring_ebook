@@ -1,16 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ebook.ranking.mapper.NoticeMapper_devho321">
-	<select id="selectNoticeList" resultType="com.ebook.ranking.domain.NoticeDto">
-		select 
-			notice_no as noticeNo,
-			notice_writer as noticeWriter,
-			notice_title as noticeTitle,
-			notice_content as noticeContent,
-			to_char(create_date,'yyyy-mm-dd') as createDate,
-			count as count,
-			origin_file as originFile,
-			stored_file as storedFile
+
+	<resultMap id="noticeDto" type="com.ebook.ranking.domain.NoticeDto">
+	  <result column="notice_no" property="noticeNo"/>
+	  <result column="notice_writer" property="noticeWriter"/>
+	  <result column="notice_content" property="noticeContent"/>
+	  <result column="notice_title" property="noticeTitle"/>
+	  <result column="create_date" property="createDate"/>
+	  <result column="origin_file" property="originFile"/>
+	  <result column="stored_file" property="storedFile"/>
+	</resultMap>
+	
+	<select id="selectNoticeList" resultMap="noticeDto">
+		select
+			NUMROW,
+			notice_no,
+			notice_writer,
+			notice_title,
+			notice_content,
+			create_date,
+			count
+		from		
+			(
+				select
+					ROW_NUMBER() OVER(ORDER BY notice_no DESC) AS NUMROW,
+					notice_no,
+					notice_writer,
+					notice_title,
+					notice_content,
+					to_char(create_date,'yyyy-mm-dd') as create_date,
+					count as count
+				from tb_notice
+				<trim prefix="WHERE" prefixOverrides="AND">
+					 <if test="searchType != null and searchType == 'title'">
+		            	and notice_title like '%'||#{searchKeyWord}||'%'
+		            </if>
+		             <if test="searchType != null and searchType == 'content'">
+		             	and notice_content like '%'||#{searchKeyWord}||'%'
+		            </if>
+				</trim>
+			)a
+		 WHERE NUMROW BETWEEN (#{currentPage}-1)*10 + 1 AND (#{currentPage})*10
+	</select>
+	
+	<select id="selectTotalCnt" resultType="int">
+		select
+			count(notice_no)
 		from tb_notice
+	</select>
+	
+	<select id="selectNoticeDetailList" resultMap="noticeDto">
+		select 
+			notice_no,
+			notice_writer,
+			notice_title,
+			notice_content,
+			to_char(create_date,'yyyy-mm-dd'),
+			count,
+			origin_file,
+			stored_file
+		from tb_notice
+		where notice_no = #{noticeNo}
 	</select>
 </mapper>
