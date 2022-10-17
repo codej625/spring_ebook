@@ -43,11 +43,11 @@
 	
 	<div class="three">
 		<h1>notice게시글 작성</h1>
-		<form action="/noticeInsert" method="post">
+		<form action="/noticeInsert" method="post" enctype="multipart/form-data">
 			<input type="text" name="noticeWriter" placeholder="작성자">
 			<input type="text" name="noticeTitle" placeholder="제목">
 			<input type="text" name="noticeContent" placeholder="내용">
-			<input type="file" name="originFile">
+			<input type="file" name="noticeFile" multiple>
 			<button type="submit">등록</button>
 		</form>
 	</div>

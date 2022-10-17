@@ -1,5 +1,9 @@
 package com.ebook.ranking.domain;
 
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 @Data
@@ -19,6 +23,9 @@ public class NoticeDto {
 	
 	//페이징처리
 	private int currentPage = 1; //현재페이지 default값은 1
+	
+	//파일등록
+	private List<MultipartFile> noticeFile;
 	
 
 }

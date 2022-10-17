@@ -63,4 +63,23 @@
 		from tb_notice
 		where notice_no = #{noticeNo}
 	</select>
+	
+	<insert id="insertNotice" >
+		insert into tb_notice(
+			notice_writer,
+			notice_title,
+			notice_content,
+			create_date,
+			origin_file,
+			stored_file
+		)
+		values(
+			#{noticeWriter},
+			#{noticeTitle},
+			#{noticeContent},
+			now(),
+			#{originFile},
+			#{storedFile}
+		)
+	</insert>
 </mapper>

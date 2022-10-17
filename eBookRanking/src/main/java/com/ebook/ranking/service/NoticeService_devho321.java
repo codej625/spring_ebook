@@ -13,4 +13,6 @@ public interface NoticeService_devho321 {
 
 	List<NoticeDto> selectNoticeDetailList(int noticeNo) throws Exception;
 
+	void insertNotice(NoticeDto noticeDto) throws Exception;
+
 }

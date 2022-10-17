@@ -5,10 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ebook.ranking.domain.NoticeDto;
@@ -45,13 +48,11 @@ public class NoticeController_devho321 {
 	}
 	//공지사항 등록 (admin계정만 사용가능)
 	@PostMapping(value = "/noticeInsert")
-	public String noitceInsert(ModelAndView mv, NoticeDto noticeDto) throws Exception {
-		System.out.println(noticeDto.getNoticeWriter());
-		System.out.println(noticeDto.getNoticeTitle());
-		System.out.println(noticeDto.getNoticeContent());
-		System.out.println(noticeDto.getOriginFile());
+	public String noitceInsert(@ModelAttribute NoticeDto noticeDto) throws Exception {
 		
-		return "redirect:/";
+		ns.insertNotice(noticeDto);
+		
+		return "redirect:/";		
 	}
 	//공지사항 수정 (admin계정만 사용가능)
 	@PostMapping(value = "/noitceUpdate")
